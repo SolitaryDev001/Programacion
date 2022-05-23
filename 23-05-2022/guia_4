@@ -1,0 +1,49 @@
+producto=0
+cantidad=0
+nombre_producto=""
+precio_producto=0
+id_cliente=1
+pagar=0
+
+total_recaudado=0
+cantidad_churrasco_solo=0
+total_churrasco_mayo=0
+
+seguir=True
+cantidad_cliente=int(input("Ingrese la Cantidad de Clientes: "))
+
+while (seguir):
+    if (id_cliente > cantidad_cliente):
+        print("");
+        print("-------------------------------------");
+        print("Se han Recaudado", total_recaudado);
+        print("Cantidade de Churrasco Solo", cantidad_churrasco_solo);
+        print("Recaudado con Churrasco Mayo", total_churrasco_mayo);
+        print("-------------------------------------");
+        seguir = False;
+        break;
+    
+    print("---------[Cliente ID",id_cliente,"/",cantidad_cliente,"]---------");
+    print("[1] Churrasco SOLO      -      $2.500");
+    print("[2] Churrasco ITALIANO  -      $3.800");
+    print("[3] Churrasco MAYO      -      $3.000");
+    print("-------------------------------------");
+
+    producto=int(input("Selecciona un producto: "));
+    cantidad=int(input("Ingresa la Cantidad: "));
+
+    if (producto==1):
+        nombre_producto="Churrasco SOLO"
+        precio_producto=2500
+        cantidad_churrasco_solo+=cantidad
+    elif (producto==2):
+        nombre_producto="Churrasco ITALIANO"
+        precio_producto=3800
+    else:
+        nombre_producto="Churrasco MAYO"
+        precio_producto=3000
+        total_churrasco_mayo+=3000*cantidad;
+    
+    pagar=precio_producto*cantidad;
+    total_recaudado+=pagar;
+    id_cliente+=1;
