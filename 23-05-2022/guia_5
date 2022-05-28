@@ -1,0 +1,107 @@
+import os;
+os.system("cls");
+
+cargo_entrada=0;
+ubicacion="";
+seguir=True;
+clientes_internet=0;
+total_recaudado_pf=0;
+total_recaudado_d=0;
+total_recaudado_dl=0;
+total_recaudado_pbd=0;
+recaudado = [total_recaudado_pf,total_recaudado_d,total_recaudado_dl,total_recaudado_pbd];
+mayor_compra=0;
+entradas_primerafila=0;
+
+def MostrarMenu():
+    print("[1] => Primeras Filas");
+    print("[2] => Diamante");
+    print("[3] => Diamante Lateral");
+    print("[4] => Platea Baja Diamante");
+    print("[5] => Reportes");
+    print("[6] => Salir del Sistema");
+
+def NombreOpcion(opcion):
+    nombre_opcion="";
+    if (opcion == 1):
+        nombre_opcion="Primeras Filas";
+    elif (opcion == 2):
+        nombre_opcion="Diamante";
+    elif (opcion == 3):
+        nombre_opcion="Diamante Lateral";
+    elif (opcion == 4):
+        nombre_opcion="Platea Baja Diamante";
+    elif (opcion == 5):
+        nombre_opcion="Reportes";
+    else:
+        nombre_opcion= "Salir";
+    return nombre_opcion;
+
+def PrecioOpcion(opcion):
+    precio_entrada=0;
+    if (opcion == 1):
+        precio_entrada=180000;
+    elif (opcion == 2):
+        precio_entrada=165000;
+    elif (opcion == 3):
+        precio_entrada=145000;
+    elif (opcion == 4):
+        precio_entrada=115000;
+    return precio_entrada;
+
+while(seguir):
+    MostrarMenu();
+    opcion = int(input("Selecciona una Opcion "));
+    nombre_opcion = NombreOpcion(opcion);
+    
+    if (nombre_opcion == NombreOpcion(6)):
+        print("******* MOVISTAR ARENA *******");
+        print("CHAOOOOOOOOOOOOOOOOOOOOOOOO0OO");
+        print("******************************");
+        seguir = False;
+        break;
+
+    if (nombre_opcion == NombreOpcion(5)):
+        print("*********************************");
+        print("Clientes por Internet",clientes_internet);
+        print("Total Recaudado por Tipo Entrada:");
+        recaudado = [total_recaudado_pf,total_recaudado_d,total_recaudado_dl,total_recaudado_pbd];
+        for i in range(len(recaudado)):
+            if (recaudado[i] > 1):
+                print(NombreOpcion(i+1), ":", recaudado[i]);
+        print("Mayor Compra", mayor_compra);
+        print("Cantidad Entradas Primera Fila", entradas_primerafila);
+        print("*********************************");
+        seguir = False;
+        break;
+    
+    cantidad_entradas = int(input("Cuantas Entradas Quiere?"));
+    forma_pago=str(input("La Compra fue de manera Presencial? (SI - NO) ")).upper();
+    precio_entrada=PrecioOpcion(opcion);
+
+    if (nombre_opcion == NombreOpcion(1)):
+        cargo_entrada = 18000;
+        total_recaudado_pf += (cantidad_entradas * precio_entrada);
+        entradas_primerafila += cantidad_entradas;
+
+    if (nombre_opcion == NombreOpcion(2)):
+        cargo_entrada = 16500;
+        total_recaudado_d += (cantidad_entradas * precio_entrada);
+
+    if (nombre_opcion == NombreOpcion(3)):
+        cargo_entrada = 14500;
+        total_recaudado_dl += (cantidad_entradas * precio_entrada);
+
+    if (nombre_opcion == NombreOpcion(4)):
+        cargo_entrada = 11500;
+        total_recaudado_pbd += (cantidad_entradas * precio_entrada);
+
+    precio_entrada = (cantidad_entradas * precio_entrada);
+
+    if (forma_pago == "SI"):
+        precio_entrada += cargo_entrada;
+    else:
+        clientes_internet += cantidad_entradas;
+
+    if (mayor_compra < precio_entrada):
+        mayor_compra = precio_entrada;
