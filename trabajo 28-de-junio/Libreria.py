@@ -52,16 +52,6 @@ def precioAsientoB(num):
 
     return precio;
 
-def precios(num):
-    precio = 0;
-
-    if (num > 0 and num<13):
-        precio=3000000;
-    else:
-        precio=1500000;
-
-    return precio;
-
 def rellenarAsiento(matriz, num, rut):
     if (matriz.flat[num-1] == 0):
         print("El CAMAROTE se encuentra OCUPADO");
@@ -72,24 +62,15 @@ def rellenarAsiento(matriz, num, rut):
     print("Total a Pagar", precio_asiento);
     return precio_asiento;
 
-def removerAsiento(matriz, num):
+def eliminarAsiento(matriz, matrizb, num):
     if (matriz.flat[num-1] != 0):
         print("El CAMAROTE no se encuentra OCUPADO");
         return 0;
 
     matriz.flat[num-1] = num;
     precio_asiento = precioAsientoB(num);
-    return precio_asiento;
-
-def eliminarAsiento(matriz, matrizb, num):
-    if (matriz.flat[num-1] != 0):
-        print("El CAMAROTE no se encuentra OCUPADO");
-        return;
-
-    matriz.flat[num-1] = num;
-    precio_asiento = precioAsientoB(num);
     print("Pasajero ELIMINADO ", int(matrizb.flat[num-1]));
-    matrizb.flat[num-1] = num;
+    quitarPasajero(int(matrizb.flat[num-1]));
     return precio_asiento;
 
 def rellenarPasajero(matriz, num, rut):
@@ -112,7 +93,7 @@ def agregarPasajero(rut):
     return rut;
 
 def quitarPasajero(num):
-    rut_pasajeros[num-1] = num;
+    rut_pasajeros.remove(num);
     return num;
 
 def rutValid():
@@ -163,7 +144,7 @@ def menu(matriz, matrizb):
             asiento = asientoValid();
 
             eliminarPasajero(matrizb, asiento);
-            total_pagar -= removerAsiento(matriz, asiento);
+            total_pagar -= eliminarAsiento(matriz, matrizb, asiento);
 
         if (op == 5):
             if (len(rut_pasajeros) == 0):
