@@ -1,4 +1,4 @@
-from Libraria import *;
+from Libreria import *;
 
 asientos=generarmatriz(6);
 pasajeros=generarmatriz(6);
