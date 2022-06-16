@@ -54,22 +54,22 @@ def precioAsientoB(num):
 
 def rellenarAsiento(matriz, num, rut):
     if (matriz.flat[num-1] == 0):
-        print("El CAMAROTE se encuentra OCUPADO");
+        print("El Camarote ya se encuentra Asignado", "\n***********************************");
         return 0;
 
     matriz.flat[num-1] = 0;
     precio_asiento = precioAsiento(num);
-    print("Total a Pagar", precio_asiento);
+    print("Precio del asiento: ", precio_asiento, "\n***********************************");
     return precio_asiento;
 
 def eliminarAsiento(matriz, matrizb, num):
     if (matriz.flat[num-1] != 0):
-        print("El CAMAROTE no se encuentra OCUPADO");
+        print("El Camarote no se encuentra Asignado", "\n***********************************");
         return 0;
 
     matriz.flat[num-1] = num;
     precio_asiento = precioAsientoB(num);
-    print("Pasajero ELIMINADO ", int(matrizb.flat[num-1]));
+    print("Pasaje de Asiento", num, "Eliminado", "\n***********************************");
     quitarPasajero(int(matrizb.flat[num-1]));
     return precio_asiento;
 
@@ -78,14 +78,24 @@ def rellenarPasajero(matriz, num, rut):
         return;
 
     matriz.flat[num-1] = rut;
-    print("\n\nAgregando rut", agregarPasajero(rut), "Como Pasajero");
+    titulo();
+    print("RUN", agregarPasajero(rut), "Asignado al asiento", num);
 
 def eliminarPasajero(matriz, num):
     if (matriz.flat[num-1] != 0):
         return;
 
-    print("\n\nEliminando Pasajero, " + quitarPasajero(num));
+    print("El Asiento", num, "Fue Reembolsado", "\n***********************************");
     matriz.flat[num-1] = num;
+
+def mostrarMatriz(matriz):
+    for x in range(5):
+        print("|\t", int(matriz[x,0]),"\t",int(matriz[x,1]),"\t",int(matriz[x,2]),"\t",int(matriz[x,3]),"\t",int(matriz[x,4]),"\t",int(matriz[x,5]), "\t|");
+
+    for x in range(2):
+        print("|___________________________    ________________________|");
+    
+    print("|\t", int(matriz[5,0]),"\t",int(matriz[5,1]),"\t",int(matriz[5,2]),"\t",int(matriz[5,3]),"\t",int(matriz[5,4]),"\t",int(matriz[5,5]), "\t|");
 
 rut_pasajeros=[];
 def agregarPasajero(rut):
@@ -96,39 +106,46 @@ def quitarPasajero(num):
     rut_pasajeros.remove(num);
     return num;
 
+def titulo():
+    print("\n\t El Bote a Remos\n***********************************");
+
 def rutValid():
     while True:
         try:
-            rut_pasajero=int(input("Ingresa un RUT "));
+            rut_pasajero=int(input("Ingrese el RUN del pasajero: "));
+            print("\n***********************************");
             long_rut = len(str(rut_pasajero));
             if (long_rut > 7 and long_rut < 10):
                 return rut_pasajero;
             else:
-                print("El rut debe tener mas de 8 caracteres, rut sin guion");
+                print("El RUN Ingresado es Erroneo");
         except ValueError:
-            print("Debes Ingresar tu Rut sin guion");
+            print("Debes Ingresar un RUT valido");
 
 def optionValid():
     while True:
         try:
-            op=int(input("Ingresa una Opcion "));
+            op=int(input("Escriba una de las Opciones: "));
             if (op > 0 and op < 7):
                 return op;
             else:
-                print("Opcion Invalida");
+                print("La Opcion no se encuentra en la lista");
         except ValueError:
-            print("Debes Ingresar un Numerico");
+            print("Debes Ingresar un Numero de las Opciones");
 
 def menu(matriz, matrizb):
     total_pagar=0;
     while True:
-        print("El bote a remos\n1. Mostrar camarotes disponibles\n2. Comprar Boleto\n3. Totales\n4. Anular venta\n5. Listado de pasajeros\n6. Salir");
+        titulo();
+        print("(1) Mostrar Camarotes Disponibles\n(2) Comprar Boleto\n(3) Totales\n(4) Anular venta\n(5) Listado de pasajeros\n(6) Salir\n***********************************");
         op = optionValid();
 
         if (op == 1):
-            print(matriz);
+            titulo();
+            mostrarMatriz(matriz);
 
         if (op == 2):
+            titulo();
             asiento = asientoValid();
             rut_pasajero=rutValid();
 
@@ -136,28 +153,33 @@ def menu(matriz, matrizb):
             total_pagar += rellenarAsiento(matriz, asiento, rut_pasajero);
         
         if (op == 3):
-            print("Cantidad de VIP => ", len(vips));
-            print("Cantidad de NORMALES => ", len(normales));
-            print("Total a PAGAR => ", total_pagar);
+            titulo();
+            print("\tInforme de Ventas");
+            print("Camarotes Vip\t\t=> ", len(vips));
+            print("Camarotes Normales\t=> ", len(normales));
+            print("Total, recaudado\t=> ", total_pagar, "\n***********************************");
 
         if (op == 4):
+            titulo();
             asiento = asientoValid();
 
             eliminarPasajero(matrizb, asiento);
             total_pagar -= eliminarAsiento(matriz, matrizb, asiento);
 
         if (op == 5):
+            titulo();
             if (len(rut_pasajeros) == 0):
                 print("No hay Pasajeros");
             else:
-                print("Lista de Pasajeros");
                 pasajeros = sorted(rut_pasajeros, key=int, reverse=False); 
+                print("Lista actual de Pasajeros");
                 for pasajero in pasajeros:
-                    print(pasajero);
+                    print("   -",pasajero);
+                print("***********************************");
         
         if (op == 6):
-            print("Hasta la proxima, turururu");
-            os.system("start www.youtube.com/watch?v=b8PxzPxI8Os");
+            titulo();
+            print("Regrese PRONTO", "\n***********************************");
             break;
 
         os.system("pause");
