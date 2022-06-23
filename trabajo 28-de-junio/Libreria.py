@@ -32,7 +32,7 @@ def precioAsiento(num):
     precio = 0;
 
     if (num > 0 and num<13):
-        precio=3000000;
+        precio=3500000;
         vips.append(1);
     else:
         precio=1500000;
@@ -44,7 +44,7 @@ def precioAsientoB(num):
     precio = 0;
 
     if (num > 0 and num<13):
-        precio=3000000;
+        precio=3500000;
         vips.remove(1);
     else:
         precio=1500000;
